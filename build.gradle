@@ -25,12 +25,17 @@ repositories {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-web')
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    compile('org.springframework.boot:spring-boot-starter-web'){
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+    }
+    compile ("org.springframework.boot:spring-boot-starter-undertow")
     compile('org.projectlombok:lombok')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('com.h2database:h2')
-    compile('org.springframework.session:spring-session-jdbc')
-    compile('org.mariadb.jdbc:mariadb-java-client')
+
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-rds', version: '1.11.847'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-freemarker', version: '2.2.6.RELEASE'
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.security:spring-security-test')
 }

@@ -1,6 +1,7 @@
 package com.bulletin.toy.domain.user;
 
 import com.bulletin.toy.domain.BaseTimeEntity;
+import com.bulletin.toy.domain.comment.Comment;
 import com.bulletin.toy.domain.post.Post;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +23,15 @@ public class User extends BaseTimeEntity {
     private Long id;
 
     @Column(nullable = false)
+    @Size(min = 1)
     private String name;
 
-    @Column(nullable = false)
-    @Email
+    @Column(nullable = false, unique = true)
+    @Email(message = "must be in email format")
     private String email;
+
+    @Column
+    private String passwd;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -37,16 +43,21 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments = new ArrayList<>();
+
     @Builder
-    public User(String name, String email, Role role, String profilePicUrl){
+    public User(String name, String email, String passwd, Role role, String profilePicUrl){
         this.name = name;
         this.email = email;
+        this.passwd = passwd;
         this.role = role;
         this.profilePicUrl = profilePicUrl;
     }
 
-    public User update(String name, String profilePicUrl){
+    public User update(String name, String passwd, String profilePicUrl){
         this.name = name;
+        this.passwd = passwd;
         this.profilePicUrl = profilePicUrl;
 
         return this;

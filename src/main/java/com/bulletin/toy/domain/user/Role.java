@@ -10,4 +10,5 @@ public enum Role {
     USER("ROLE_USER");
 
     private final String key;
+
 }

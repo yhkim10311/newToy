@@ -2,6 +2,7 @@ package com.bulletin.toy.service.post;
 
 
 import com.bulletin.toy.controller.post.PostDto;
+import com.bulletin.toy.controller.post.PostRequest;
 import com.bulletin.toy.domain.post.Post;
 import com.bulletin.toy.domain.user.User;
 import com.bulletin.toy.service.user.UserService;
@@ -52,13 +53,13 @@ public class PostServiceTest {
     public void test1_Post저장(){
         User user = userService.join(name,email,passwd);
 
-        Post post = Post
+        PostRequest postRequest  = PostRequest
                 .builder()
                 .content(content)
+                .email(email)
                 .title(title)
-                .user(user)
                 .build();
-        PostDto postDto = postService.save(post);
+        PostDto postDto = postService.save(postRequest);
 
         assertThat(postDto.getContent()).isEqualTo(content);
         assertThat(postDto.getTitle()).isEqualTo(title);
@@ -67,11 +68,11 @@ public class PostServiceTest {
 
     @Test
     public void test2_Post조회(){
-        PostDto postDto = postService.findById(1L);
+        Post post = postService.findById(1L);
 
-        assertThat(postDto.getTitle()).isEqualTo(title);
-        assertThat(postDto.getContent()).isEqualTo(content);
-        assertThat(postDto.getUserEmail()).isEqualTo(email);
+        assertThat(post.getTitle()).isEqualTo(title);
+        assertThat(post.getContent()).isEqualTo(content);
+        assertThat(post.getUser().getEmail()).isEqualTo(email);
     }
 
     @Test
@@ -80,13 +81,14 @@ public class PostServiceTest {
 
         String newTitle = "New Title";
         String newContent = "New Content";
-        Post post = Post
+
+        PostRequest postRequest  = PostRequest
                 .builder()
                 .content(newContent)
+                .email(email)
                 .title(newTitle)
-                .user(user)
                 .build();
-        PostDto postDto = postService.save(post);
+        PostDto postDto = postService.save(postRequest);
         List<PostDto> postDtoList = postService.findAllDesc();
 
         assertThat(postDtoList.size()).isEqualTo(2);

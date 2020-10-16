@@ -1,12 +1,15 @@
 package com.bulletin.toy.domain.post;
 
 import com.bulletin.toy.domain.BaseTimeEntity;
+import com.bulletin.toy.domain.comment.Comment;
 import com.bulletin.toy.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -24,8 +27,11 @@ public class Post extends BaseTimeEntity {
     private String content;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @OneToMany(mappedBy = "comment")
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Post(String title, String content, User user){

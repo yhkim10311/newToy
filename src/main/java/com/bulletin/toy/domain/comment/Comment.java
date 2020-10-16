@@ -3,13 +3,15 @@ package com.bulletin.toy.domain.comment;
 import com.bulletin.toy.domain.BaseTimeEntity;
 import com.bulletin.toy.domain.post.Post;
 import com.bulletin.toy.domain.user.User;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.checkerframework.checker.units.qual.C;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -27,17 +29,19 @@ public class Comment extends BaseTimeEntity {
     private String content;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name = "user_id", referencedColumnName = "id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name = "post_id", referencedColumnName = "id")
     private Post post;
 
-    @Getter(AccessLevel.NONE)
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "comment_id", referencedColumnName = "id") // TODO 명시적으로 칼럼 이름
     private Comment comment;
+
+    @OneToMany(mappedBy = "comment")
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder
     public Comment(String content, User user, Post post, Comment comment){

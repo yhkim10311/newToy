@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,6 @@ public class User extends BaseTimeEntity {
     private String name;
 
     @Column(nullable = false, unique = true)
-    @Email(message = "must be in email format")
     private String email;
 
     @Column
@@ -48,6 +46,7 @@ public class User extends BaseTimeEntity {
 
     @Builder
     public User(String name, String email, String passwd, Role role, String profilePicUrl){
+        this.id = id;
         this.name = name;
         this.email = email;
         this.passwd = passwd;

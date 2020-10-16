@@ -4,6 +4,8 @@ import com.bulletin.toy.domain.user.Role;
 import com.bulletin.toy.domain.user.User;
 import com.bulletin.toy.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,12 +15,13 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
+    @Override
     @Transactional
     public User join(String name, String email, String passwd){
 
@@ -34,9 +37,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    @Transactional
+    @Override
     public User findByEmail(String email){
-
         return userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
     }
 }

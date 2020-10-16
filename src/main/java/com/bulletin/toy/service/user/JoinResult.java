@@ -1,4 +1,4 @@
-package com.bulletin.toy.controller.user;
+package com.bulletin.toy.service.user;
 
 import com.bulletin.toy.domain.user.User;
 import lombok.*;

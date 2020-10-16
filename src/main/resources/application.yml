@@ -3,7 +3,9 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        ddl_auto: create # 로컬 환경
         dialect: 'org.hibernate.dialect.MySQL5Dialect'
+    generate-ddl: true  # 로컬 환경
   freemarker:
     template-loader-path: 'classpath:/templates'
     suffix: .ftl
@@ -21,3 +23,11 @@ spring:
       minimum-idle: 1
       maximum-pool-size: 5
       pool-name: H2_DB
+  redis:
+    host: localhost
+    port: 6379
+jwt:
+  token:
+    header: api_key
+    issuer: woowabros
+    secret: F948937D2B793758ADFFECBD19B719CF1C5367B1CD96E7B4A72B41D69E2FFE24

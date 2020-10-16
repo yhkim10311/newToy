@@ -1,4 +1,4 @@
-package com.bulletin.toy.controller.post;
+package com.bulletin.toy.service.post;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

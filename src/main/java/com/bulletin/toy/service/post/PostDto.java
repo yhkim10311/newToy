@@ -1,4 +1,4 @@
-package com.bulletin.toy.controller.post;
+package com.bulletin.toy.service.post;
 
 import com.bulletin.toy.domain.post.Post;
 import com.bulletin.toy.domain.user.User;

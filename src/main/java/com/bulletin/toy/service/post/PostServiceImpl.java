@@ -1,8 +1,5 @@
 package com.bulletin.toy.service.post;
 
-import com.bulletin.toy.controller.post.PostDto;
-import com.bulletin.toy.controller.post.PostRequest;
-import com.bulletin.toy.controller.post.PostUpdateRequest;
 import com.bulletin.toy.domain.post.Post;
 import com.bulletin.toy.domain.post.PostRepository;
 import com.bulletin.toy.domain.user.User;
@@ -17,12 +14,13 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class PostService {
+public class PostServiceImpl implements PostService{
 
     private final PostRepository postRepository;
 
     private final UserRepository userRepository;
 
+    @Override
     @Transactional
     public PostDto save(PostRequest postRequest){
 
@@ -32,11 +30,11 @@ public class PostService {
         return new PostDto(postRepository.save(postRequest.toEntity(user)));
     }
 
-    @Transactional
     public Post findById(Long id){
         return findThePost(id);
     }
 
+    @Override
     @Transactional
     public PostDto delete(Long id){
         Post post = findThePost(id);
@@ -46,6 +44,7 @@ public class PostService {
         );
     }
 
+    @Override
     @Transactional
     public PostDto update(Long id, PostUpdateRequest postUpdateRequest){
         return new PostDto(
@@ -54,7 +53,8 @@ public class PostService {
         );
     }
 
-    @Transactional
+    @Override
+    @Transactional(readOnly = true)
     public List<PostDto> findAllDesc(){
         return postRepository
                 .findAll(new Sort(Sort.Direction.DESC, "id"))

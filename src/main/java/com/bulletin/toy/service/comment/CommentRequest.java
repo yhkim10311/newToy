@@ -1,4 +1,4 @@
-package com.bulletin.toy.controller.comment;
+package com.bulletin.toy.service.comment;
 
 import com.bulletin.toy.domain.comment.Comment;
 import com.bulletin.toy.domain.post.Post;

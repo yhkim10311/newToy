@@ -1,7 +1,5 @@
 package com.bulletin.toy.service.comment;
 
-import com.bulletin.toy.controller.comment.CommentDto;
-import com.bulletin.toy.controller.comment.CommentRequest;
 import com.bulletin.toy.domain.comment.Comment;
 import com.bulletin.toy.domain.comment.CommentRepository;
 import com.bulletin.toy.domain.post.Post;
@@ -18,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class CommentService {
+public class CommentServiceImpl implements CommentService{
 
     private final CommentRepository commentRepository;
 
@@ -26,6 +24,7 @@ public class CommentService {
 
     private final UserRepository userRepository;
 
+    @Override
     @Transactional
     public CommentDto save(CommentRequest commentRequest, Long postId) {
         User user = userRepository.findByEmail(commentRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원 입니다."));
@@ -38,12 +37,13 @@ public class CommentService {
         return new CommentDto(commentRepository.save(commentRequest.toEntity(user, comment, post)));
     }
 
-    @Transactional
+    @Override
     public Optional<Comment> findById(Long id){
         return commentRepository.findById(id);
     }
 
-    @Transactional
+    @Override
+    @Transactional(readOnly = true)
     public List<CommentDto> findAllDesc(Long postId){
         return commentRepository.findAllDesc(postId)
                 .stream()

@@ -14,14 +14,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -62,15 +62,14 @@ public class UserRestControllerTest {
 
         given(userService.join(name,email,passwd)).willReturn(user);
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("name","name");
-        params.add("principal","email@gmai.com");
-        params.add("credentials","passwd123456");
 
         mockMvc.perform(post("/api/user/join")
-                .params(params)
+                .content("{\"principal\":\""+email+"\", \"credentials\":\""+passwd+"\", \"name\":\""+name+"\"}")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString(email)));
+
     }
 
 }

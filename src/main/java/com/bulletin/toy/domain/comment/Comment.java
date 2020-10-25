@@ -37,7 +37,7 @@ public class Comment extends BaseTimeEntity {
     private Post post;
 
     @ManyToOne
-    @JoinColumn(name = "comment_id", referencedColumnName = "id") // TODO 명시적으로 칼럼 이름
+    @JoinColumn(name = "comment_id", referencedColumnName = "id")
     private Comment comment;
 
     @OneToMany(mappedBy = "comment")

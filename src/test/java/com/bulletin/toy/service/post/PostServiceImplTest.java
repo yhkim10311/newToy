@@ -1,11 +1,10 @@
 package com.bulletin.toy.service.post;
 
 
-import com.bulletin.toy.controller.post.PostDto;
-import com.bulletin.toy.controller.post.PostRequest;
 import com.bulletin.toy.domain.post.Post;
 import com.bulletin.toy.domain.user.User;
-import com.bulletin.toy.service.user.UserService;
+import com.bulletin.toy.service.auth.JwtUserDetails;
+import com.bulletin.toy.service.user.UserServiceImpl;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -22,13 +21,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PostServiceTest {
+public class PostServiceImplTest {
 
     @Autowired
-    private PostService postService;
+    private PostServiceImpl postServiceImpl;
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     private String name;
 
@@ -51,15 +50,15 @@ public class PostServiceTest {
 
     @Test
     public void test1_Post저장(){
-        User user = userService.join(name,email,passwd);
+        User user = userServiceImpl.join(name,email,passwd);
 
+        JwtUserDetails jwtUserDetails = new JwtUserDetails(user);
         PostRequest postRequest  = PostRequest
                 .builder()
                 .content(content)
-                .email(email)
                 .title(title)
                 .build();
-        PostDto postDto = postService.save(postRequest);
+        PostDto postDto = postServiceImpl.save(jwtUserDetails,postRequest);
 
         assertThat(postDto.getContent()).isEqualTo(content);
         assertThat(postDto.getTitle()).isEqualTo(title);
@@ -68,7 +67,7 @@ public class PostServiceTest {
 
     @Test
     public void test2_Post조회(){
-        Post post = postService.findById(1L);
+        Post post = postServiceImpl.findById(1L);
 
         assertThat(post.getTitle()).isEqualTo(title);
         assertThat(post.getContent()).isEqualTo(content);
@@ -77,19 +76,18 @@ public class PostServiceTest {
 
     @Test
     public void test3_Post전체조회(){
-        User user = userService.findByEmail(email);
-
+        User user = userServiceImpl.findByEmail(email);
+        JwtUserDetails jwtUserDetails = new JwtUserDetails(user);
         String newTitle = "New Title";
         String newContent = "New Content";
 
         PostRequest postRequest  = PostRequest
                 .builder()
                 .content(newContent)
-                .email(email)
                 .title(newTitle)
                 .build();
-        PostDto postDto = postService.save(postRequest);
-        List<PostDto> postDtoList = postService.findAllDesc();
+        PostDto postDto = postServiceImpl.save(jwtUserDetails, postRequest);
+        List<PostDto> postDtoList = postServiceImpl.findAllDesc();
 
         assertThat(postDtoList.size()).isEqualTo(2);
         assertThat(postDtoList.get(1).getTitle()).isEqualTo(title);
@@ -98,7 +96,7 @@ public class PostServiceTest {
 
     @Test
     public void test4_Post삭제(){
-        PostDto postDto = postService.delete(1L);
+        PostDto postDto = postServiceImpl.delete(1L);
 
         assertThat(postDto.getTitle()).isEqualTo(title);
         assertThat(postDto.getUserEmail()).isEqualTo(email);

@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class UserServiceTest {
+public class UserServiceImplTest {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     private String name;
 
@@ -36,7 +36,7 @@ public class UserServiceTest {
 
     @Test
     public void test1_회원가입(){
-        User user = userService.join(name,email,passwd);
+        User user = userServiceImpl.join(name,email,passwd);
 
         assertThat(user.getName()).isEqualTo(name);
         assertThat(user.getEmail()).isEqualTo(email);
@@ -44,7 +44,7 @@ public class UserServiceTest {
 
     @Test
     public void test2_이메일로_회원조회(){
-        User user = userService.findByEmail(email);
+        User user = userServiceImpl.findByEmail(email);
 
         assertThat(user).isNotNull();
         assertThat(user.getEmail()).isEqualTo(email);

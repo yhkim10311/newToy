@@ -2,26 +2,33 @@ package com.bulletin.toy.controller.user;
 
 import com.bulletin.toy.controller.ApiResult;
 import com.bulletin.toy.domain.user.User;
-import com.bulletin.toy.service.user.UserService;
+import com.bulletin.toy.security.JwtAuthHelper;
+import com.bulletin.toy.service.auth.JwtUserDetails;
+import com.bulletin.toy.service.user.JoinRequest;
+import com.bulletin.toy.service.user.JoinResult;
+import com.bulletin.toy.service.user.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
-import static com.bulletin.toy.controller.ApiResult.OK;
+import javax.validation.Valid;
 
+@Slf4j
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor
 public class UserRestController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
-    @PostMapping("user/join")
-    public ApiResult<JoinResult> join(@ModelAttribute JoinRequest joinRequest){
-        User user = userService.join(joinRequest.getName(), joinRequest.getPrincipal(), joinRequest.getCredentials());
+    private final JwtAuthHelper jwtAuthHelper;
 
-        return OK(new JoinResult(user));
+    @PostMapping("/join")
+    public ApiResult<JoinResult> join(@Valid @RequestBody JoinRequest joinRequest){
+        User user = userServiceImpl.join(joinRequest.getName(), joinRequest.getPrincipal(), joinRequest.getCredentials());
+        String accessToken = jwtAuthHelper.generateAccessToken(new JwtUserDetails(user));
+        log.info("Joined"+user.toString());
+        return ApiResult.ok(new JoinResult(user, accessToken));
     }
 }

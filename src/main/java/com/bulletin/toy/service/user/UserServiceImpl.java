@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;

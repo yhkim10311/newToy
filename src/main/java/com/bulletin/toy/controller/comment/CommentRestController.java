@@ -1,34 +1,43 @@
 package com.bulletin.toy.controller.comment;
 
 import com.bulletin.toy.controller.ApiResult;
-import com.bulletin.toy.service.comment.CommentService;
+import com.bulletin.toy.service.auth.JwtUserDetails;
+import com.bulletin.toy.service.comment.CommentDto;
+import com.bulletin.toy.service.comment.CommentRequest;
+import com.bulletin.toy.service.comment.CommentServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.bulletin.toy.controller.ApiResult.OK;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class CommentRestController {
 
-    private final CommentService commentService;
+    private final CommentServiceImpl commentServiceImpl;
 
-    @PostMapping("post/{postId}/comment")
-    public ApiResult<CommentDto> commenting(@ModelAttribute CommentRequest commentRequest,
+    @PostMapping("/post/{postId}/comment")
+    public ApiResult<CommentDto> commenting(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+                                            @ModelAttribute CommentRequest commentRequest,
                                             @PathVariable Long postId){
-        return OK(
-                commentService.save(commentRequest, postId)
+        return ApiResult.ok(
+                commentServiceImpl.save(jwtUserDetails, commentRequest, postId)
         );
     }
 
-    @GetMapping("post/{postId}/comment")
+    @GetMapping("/post/{postId}/comment")
     public ApiResult<List<CommentDto>> comments(@PathVariable Long postId){
-        return OK(
-                commentService.findAllDesc(postId)
+        return ApiResult.ok(
+                commentServiceImpl.findAllDesc(postId)
         );
     }
+/*
+    @PutMapping("post/{postId}/comment/{commentId}")
+    public ApiResult<CommentDto> updateComment(@PathVariable Long postId, @PathVariable Long commentId){
 
+    }
+*/
 }

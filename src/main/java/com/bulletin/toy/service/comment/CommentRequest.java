@@ -18,9 +18,6 @@ public class CommentRequest {
 
     private Long commentId;
 
-    // TODO 인증처리 추가 후 삭제
-    private String email;
-
     public Comment toEntity(User user, Comment comment, Post post){
         return Comment
                 .builder()

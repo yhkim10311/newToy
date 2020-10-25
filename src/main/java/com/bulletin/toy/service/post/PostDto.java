@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+
 import static org.springframework.beans.BeanUtils.copyProperties;
 
 @Getter
@@ -20,6 +22,10 @@ public class PostDto {
     private String content;
 
     private String userEmail;
+
+    private LocalDateTime createdDate;
+
+    private LocalDateTime lastModifiedDate;
 
     public PostDto(Post post){
         copyProperties(post, this);

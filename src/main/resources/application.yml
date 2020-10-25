@@ -28,6 +28,6 @@ spring:
     port: 6379
 jwt:
   token:
-    header: api_key
+    header: Authorization
     issuer: woowabros
     secret: F948937D2B793758ADFFECBD19B719CF1C5367B1CD96E7B4A72B41D69E2FFE24

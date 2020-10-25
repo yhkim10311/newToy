@@ -11,6 +11,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Getter
 @NoArgsConstructor
 @Entity
@@ -35,6 +37,8 @@ public class Post extends BaseTimeEntity {
 
     @Builder
     public Post(String title, String content, User user){
+        checkNotNull(title,"제목을 입력하세요");
+        checkNotNull(content,"내용을 입력하세요");
         this.title = title;
         this.content = content;
         this.user = user;

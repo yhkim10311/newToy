@@ -14,14 +14,10 @@ public class PostRequest {
 
     private String content;
 
-    // TODO 인증처리 추가 후 삭제
-    private String email;
-
     @Builder
-    public PostRequest(String title, String content, String email){
+    public PostRequest(String title, String content){
         this.title = title;
         this.content = content;
-        this.email = email;
     }
 
     public Post toEntity(User user){

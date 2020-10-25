@@ -1,40 +1,40 @@
 package com.bulletin.toy.controller.post;
 
 import com.bulletin.toy.controller.ApiResult;
-import com.bulletin.toy.domain.user.User;
-import com.bulletin.toy.service.post.PostService;
-import com.bulletin.toy.service.user.UserService;
+import com.bulletin.toy.service.auth.JwtUserDetails;
+import com.bulletin.toy.service.post.PostDto;
+import com.bulletin.toy.service.post.PostRequest;
+import com.bulletin.toy.service.post.PostServiceImpl;
+import com.bulletin.toy.service.post.PostUpdateRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import static com.bulletin.toy.controller.ApiResult.OK;
-
 @RestController
-@RequestMapping("api")
+@RequestMapping("/api/post")
 @RequiredArgsConstructor
 public class PostRestController {
 
-    private final PostService postService;
+    private final PostServiceImpl postServiceImpl;
 
-    @PostMapping("post")
-    public ApiResult<PostDto> posting(@RequestBody PostRequest postRequest){
-
-        return OK(
-                postService.save(postRequest)
+    @PostMapping
+    public ApiResult<PostDto> posting(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @RequestBody PostRequest postRequest){
+        return ApiResult.ok(
+                postServiceImpl.save(jwtUserDetails, postRequest)
         );
     }
 
-    @DeleteMapping("post/{id}")
+    @DeleteMapping("/{id}")
     public ApiResult<PostDto> delete(@PathVariable Long id){
-        return OK(
-                postService.delete(id)
+        return ApiResult.ok(
+                postServiceImpl.delete(id)
         );
     }
 
-    @PutMapping("post/{id}")
+    @PutMapping("/{id}")
     public ApiResult<PostDto> update(@PathVariable Long id, @RequestBody PostUpdateRequest postUpdateRequest){
-        return OK(
-                postService.update(id, postUpdateRequest)
+        return ApiResult.ok(
+                postServiceImpl.update(id, postUpdateRequest)
         );
     }
 }

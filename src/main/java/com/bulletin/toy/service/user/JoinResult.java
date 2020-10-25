@@ -10,4 +10,6 @@ public class JoinResult {
 
     private final User user;
 
+    private final String accessToken;
+
 }

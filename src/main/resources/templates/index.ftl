@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="utf-8">
-    <title>welcome</title>
-</head>
+<#include "/layout/header.ftl" />
 <body>
-<h1>This is freemarker sample.</h1>
+<h1>게시판</h1>
+<div class="row">
+    <div class="col-md-6">
+        <a href="/post" role="button" class="btn btn-primary">글 등록</a>
+        <#if user??>
+            <a class="btn btn-success active" role="button" id="btn-logout">Logout</a>
+        <#else>
+            <a href="/login" class="btn btn-success active" role="button">Login</a>
+            <a href="/join" class="btn btn-success active" role="button">회원가입</a>
+        </#if>
+    </div>
+</div>
+
+<table class="table table-horizontal table-bordered">
+    <thead class="thead-strong">
+    <tr>
+        <td>번호</td>
+        <td>작성자</td>
+        <td>제목</td>
+        <td>작성일</td>
+    </tr>
+    </thead>
+    <#foreach post in posts>
+        <tr>
+            <td>${post.id}</td>
+            <td>${post.userEmail}</td>
+            <td>${post.title}</td>
+            <td>${post.createdDate}</td>
+        </tr>
+    </#foreach>
+</table>
 </body>
-</html>
+<#include "/layout/footer.ftl" />

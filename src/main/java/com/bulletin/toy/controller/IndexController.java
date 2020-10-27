@@ -37,8 +37,6 @@ public class IndexController {
 
     @GetMapping("/")
     public ModelAndView home(HttpServletRequest request){
-        // TODO token expire되면 request에 존재하지 않음... --> Session 사용
-        // TODO session 사용하여 리펙토링 하기!!
         Map<String, Object> params = new HashMap<>();
         params.put("posts",postServiceImpl.findAllDesc());
         Object user =  SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -15,8 +15,8 @@ import java.util.function.Function;
 
 @Component
 public class JwtAuthHelper {
-    // TODO one min temp....
-    public static final long ACCESS_TOKEN_VALIDITY = 60; //ten minutes
+
+    public static final long ACCESS_TOKEN_VALIDITY = 60; //one minutes
     public static final long REFRESH_TOKEN_VALIDITY = 7*24*60*60; //one week
     public static final String ACCESS_TOKEN_NAME = "accessToken";
     public static final String REFRESH_TOKEN_NAME = "refreshToken";

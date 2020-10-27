@@ -1,7 +1,9 @@
 package com.bulletin.toy.config;
 
 import com.bulletin.toy.domain.user.Role;
+import com.bulletin.toy.security.EntryPointUnauthorizedHandler;
 import com.bulletin.toy.security.JwtAuthenticationFilter;
+import com.bulletin.toy.security.RedisAuthFilter;
 import com.bulletin.toy.service.auth.JwtUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +26,8 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
 
     private final JwtUserDetailService jwtUserDetailService;
 
+    private final EntryPointUnauthorizedHandler entryPointUnauthorizedHandler;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -32,6 +36,11 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(AuthenticationManager authenticationManager){
         return new JwtAuthenticationFilter(authenticationManager);
+    }
+
+    @Bean
+    public RedisAuthFilter redisAuthFilter() {
+        return new RedisAuthFilter();
     }
 
     @Bean
@@ -63,6 +72,9 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                   .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                   .and()
+                .exceptionHandling()
+                  .authenticationEntryPoint(entryPointUnauthorizedHandler)
+                  .and()
                 .authorizeRequests()
                   .antMatchers("/","/js/**","/h2-console/**").permitAll()
                   .antMatchers("/join","/login","/post").permitAll()
@@ -75,7 +87,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
                 .logout()
                   .logoutSuccessUrl("/");
         http
-                .addFilterBefore(jwtAuthenticationFilter(authenticationManagerBean()),
+                .addFilterBefore(redisAuthFilter(),
                         UsernamePasswordAuthenticationFilter.class);
 
     }

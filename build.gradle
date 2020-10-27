@@ -43,6 +43,7 @@ dependencies {
 
     compile('org.springframework.boot:spring-boot-starter-data-redis')
     compile group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
+    compile('org.springframework.session:spring-session-data-redis')
     compile group: 'com.amazonaws', name: 'aws-java-sdk-rds', version: '1.11.847'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-freemarker', version: '2.2.6.RELEASE'
     testCompile('org.springframework.boot:spring-boot-starter-test')

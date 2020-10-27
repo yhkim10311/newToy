@@ -3,10 +3,10 @@ package com.bulletin.toy.exception;
 import com.bulletin.toy.controller.ApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.HttpMediaTypeException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -33,7 +33,7 @@ public class GeneralExceptionHandler {
             IllegalStateException.class, IllegalArgumentException.class,
             TypeMismatchException.class, HttpMessageNotReadableException.class,
             MissingServletRequestParameterException.class, MultipartException.class,
-            MethodArgumentNotValidException.class
+            MethodArgumentNotValidException.class, BadCredentialsException.class
     })
     public ResponseEntity<?> handleBadRequestException(Exception e) {
         log.debug("Bad request exception occurred: {}", e.getMessage(), e);

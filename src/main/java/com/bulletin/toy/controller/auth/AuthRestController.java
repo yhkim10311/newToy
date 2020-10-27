@@ -2,11 +2,12 @@ package com.bulletin.toy.controller.auth;
 
 import com.bulletin.toy.controller.ApiResult;
 import com.bulletin.toy.service.auth.*;
-import javassist.NotFoundException;
+import com.bulletin.toy.service.user.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,26 +22,18 @@ import javax.servlet.http.HttpSession;
 public class AuthRestController {
     private final AuthenticationManager authenticationManager;
 
-    private final JwtUserDetailService jwtUserDetailService;
-
-    private final JwtTokenService jwtTokenService;
+    private final HttpSession httpSession;
 
     @PostMapping
     public ApiResult<AuthResult> authentication(@RequestBody AuthRequest authRequest, HttpServletResponse response) {
-        authenticationManager.authenticate(
+        Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(authRequest.getPrincipal(), authRequest.getCredentials()));
-        UserDetails userDetails = jwtUserDetailService.loadUserByUsername(authRequest.getPrincipal());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        httpSession.setAttribute("user",authentication.getName());
 
         return  ApiResult.ok(
-                jwtTokenService.getBothTokens(userDetails, response)
+                new AuthResult(null,null,new UserDto(((JwtUserDetails)authentication.getPrincipal()).getUser()))
         );
     }
 
-    @PostMapping(path="/logout")
-    public ApiResult<AuthResult> logout(HttpServletResponse response) {
-
-        return  ApiResult.ok(
-                jwtTokenService.removeTokens(response)
-        );
-    }
 }

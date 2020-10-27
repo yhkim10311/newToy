@@ -21,11 +21,11 @@ var main = {
         $('#btn-login').on('click', function () {
             _this.login();
         });
-
+/*
         $('#btn-logout').on('click', function () {
             _this.logout();
         });
-
+*/
         $('#btn-post').on('click', function () {
             _this.post();
         });

@@ -1,11 +1,17 @@
 package com.bulletin.toy.controller;
 
+import com.bulletin.toy.domain.user.User;
 import com.bulletin.toy.security.JwtAuthHelper;
+import com.bulletin.toy.service.auth.JwtUserDetails;
 import com.bulletin.toy.service.post.PostServiceImpl;
+import com.bulletin.toy.service.user.UserDto;
 import com.bulletin.toy.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.session.Session;
+import org.springframework.session.SessionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +31,9 @@ public class IndexController {
 
     private final PostServiceImpl postServiceImpl;
 
-    private final JwtAuthHelper jwtAuthHelper;
+    private final SessionRepository sessionRepository;
 
-    private final HttpSession httpSession;
+    private final String sessionName = "user";
 
     @GetMapping("/")
     public ModelAndView home(HttpServletRequest request){
@@ -35,10 +41,13 @@ public class IndexController {
         // TODO session 사용하여 리펙토링 하기!!
         Map<String, Object> params = new HashMap<>();
         params.put("posts",postServiceImpl.findAllDesc());
+        Object user =  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        Object user = httpSession.getAttribute("user");
-        if(user!=null) {
-            params.put("user",user);
+        Session session;
+        session = sessionRepository.findById(sessionName);
+
+        if(session!=null) {
+            params.put(sessionName,new UserDto(((JwtUserDetails) user).getUser()));
         }
 
         return new ModelAndView("index", params);

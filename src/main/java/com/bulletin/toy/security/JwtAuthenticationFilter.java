@@ -48,10 +48,9 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
+/*
         Optional<Cookie> accessCookie = CookieUtil.getCookie(request, JwtAuthHelper.ACCESS_TOKEN_NAME);
         Optional<Cookie> refreshCookie = CookieUtil.getCookie(request, JwtAuthHelper.REFRESH_TOKEN_NAME);
-        // TODO 메소드 분리.. refactor: command shift a
         if (accessCookie.isPresent() && !jwtAuthHelper.isTokenExpired(accessCookie.get().getValue())) {  // when accessToken present and not expired
             String userName = findUserNameFromCookie(accessCookie);
 
@@ -82,6 +81,8 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
                 notAuthenticated(response,null);
             }
         }
+
+ */
         filterChain.doFilter(request, response);
     }
 

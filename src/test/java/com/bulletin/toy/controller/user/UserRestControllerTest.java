@@ -57,7 +57,6 @@ public class UserRestControllerTest {
 
     @Test
     public void test1_회원가입() throws Exception{
-        // TODO JSON 확인
         User user = User.builder().email(email).name(name).passwd(passwd).role(Role.USER).build();
 
         given(userService.join(name,email,passwd)).willReturn(user);
@@ -69,7 +68,6 @@ public class UserRestControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString(email)));
-
     }
 
 }

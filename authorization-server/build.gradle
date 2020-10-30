@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation('org.springframework.security:spring-security-test')
+
+    compile('org.springframework.boot:spring-boot-starter-web'){
+        exclude group: "org.springframework.boot", module: "spring-boot-starter-tomcat"
+    }
+    compile ("org.springframework.boot:spring-boot-starter-undertow")
+    compile('org.projectlombok:lombok')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('com.h2database:h2')
+
+    compile group: 'com.google.guava', name: 'guava', version: '29.0-jre'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+    compile group: 'com.auth0', name: 'java-jwt', version: '3.10.3'
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
+    compile group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
+    compile('org.springframework.session:spring-session-data-redis')
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-rds', version: '1.11.847'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-freemarker', version: '2.2.6.RELEASE'
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.security:spring-security-test')
+
+    annotationProcessor('org.projectlombok:lombok')
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

@@ -1,5 +1,5 @@
 <#include "/layout/header.ftl" />
-
+<body>
 <h1>글작성</h1>
 
 <div class="col-md-12">
@@ -18,5 +18,5 @@
         <button type="button" class="btn btn-primary" id="btn-post">등록</button>
     </div>
 </div>
-
+</body>
 <#include "/layout/footer.ftl" />

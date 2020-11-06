@@ -1,13 +1,12 @@
 package com.bulletin.toy.service.post;
 
-import com.bulletin.toy.domain.post.Post;
-import com.bulletin.toy.service.auth.JwtUserDetails;
+import com.bulletin.toy.service.auth.CustomUserDetails;
 
 import java.util.List;
 
 public interface PostService {
 
-    PostDto save(JwtUserDetails jwtUserDetails, PostRequest postRequest);
+    PostDto save(CustomUserDetails customUserDetails, PostRequest postRequest);
 
     PostDto delete(Long id);
 

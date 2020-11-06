@@ -1,5 +1,5 @@
 <#include "/layout/header.ftl" />
-
+    <body>
 <h1>글</h1>
 
 <div class="row">
@@ -77,6 +77,7 @@
         <a href="/" role="button" class="btn btn-secondary">뒤로</a>
         <button type="button" class="btn btn-primary" id="btn-comment">댓글등록</button>
     </div>
-</div>
 
+</div>
+    </body>
 <#include "/layout/footer.ftl" />

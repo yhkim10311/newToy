@@ -34,6 +34,5 @@ project(':authorization-server') {
 
 project(':resource-server') {
     dependencies {
-        compile project(':client')
     }
 }

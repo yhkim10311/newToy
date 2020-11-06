@@ -36,7 +36,7 @@ public class UserServiceImplTest {
 
     @Test
     public void test1_회원가입(){
-        User user = userServiceImpl.join(name,email,passwd);
+        User user = userServiceImpl.join(name,email);
 
         assertThat(user.getName()).isEqualTo(name);
         assertThat(user.getEmail()).isEqualTo(email);
@@ -44,7 +44,7 @@ public class UserServiceImplTest {
 
     @Test
     public void test2_이메일로_회원조회(){
-        User user = userServiceImpl.findByEmail(email);
+        User user = userServiceImpl.findByEmail(email).orElse(null);
 
         assertThat(user).isNotNull();
         assertThat(user.getEmail()).isEqualTo(email);

@@ -1,9 +1,8 @@
 package com.bulletin.toy.service.post;
 
 
-import com.bulletin.toy.domain.post.Post;
 import com.bulletin.toy.domain.user.User;
-import com.bulletin.toy.service.auth.JwtUserDetails;
+import com.bulletin.toy.service.auth.CustomUserDetails;
 import com.bulletin.toy.service.user.UserServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -51,15 +50,15 @@ public class PostServiceImplTest {
 
     @Test
     public void test1_Post저장(){
-        User user = userServiceImpl.join(name,email,passwd);
+        User user = userServiceImpl.join(name,email);
 
-        JwtUserDetails jwtUserDetails = new JwtUserDetails(user);
+        CustomUserDetails customUserDetails = new CustomUserDetails(user);
         PostRequest postRequest  = PostRequest
                 .builder()
                 .content(content)
                 .title(title)
                 .build();
-        PostDto postDto = postServiceImpl.save(jwtUserDetails,postRequest);
+        PostDto postDto = postServiceImpl.save(customUserDetails,postRequest);
 
         assertThat(postDto.getContent()).isEqualTo(content);
         assertThat(postDto.getTitle()).isEqualTo(title);
@@ -77,8 +76,8 @@ public class PostServiceImplTest {
 
     @Test
     public void test3_Post전체조회(){
-        User user = userServiceImpl.findByEmail(email);
-        JwtUserDetails jwtUserDetails = new JwtUserDetails(user);
+        User user = userServiceImpl.findByEmail(email).orElse(null);
+        CustomUserDetails customUserDetails = new CustomUserDetails(user);
         String newTitle = "New Title";
         String newContent = "New Content";
 
@@ -87,7 +86,7 @@ public class PostServiceImplTest {
                 .content(newContent)
                 .title(newTitle)
                 .build();
-        PostDto postDto = postServiceImpl.save(jwtUserDetails, postRequest);
+        PostDto postDto = postServiceImpl.save(customUserDetails, postRequest);
         List<PostDto> postDtoList = postServiceImpl.findAllDesc();
 
         Assertions.assertThat(postDtoList.size()).isEqualTo(2);

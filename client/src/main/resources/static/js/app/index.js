@@ -23,17 +23,16 @@ var main = {
             _this.login();
         });
 
-/*
-        $('#btn-logout').on('click', function () {
-            _this.logout();
-        });
-*/
         $('#btn-post').on('click', function () {
             _this.post();
         });
 
         $('#btn-comment').on('click', function () {
             _this.comment();
+        });
+
+        $('#btn-loginPage').on('click', function () {
+            _this.loginPage();
         });
 
         $("#myTable tr").click(function(e) {
@@ -52,13 +51,6 @@ var main = {
         });
 
     },
-    createAuthorizationTokenHeader : function () {
-        if (token) {
-            return {"Authorization": "Bearer " + token};
-        } else {
-            return {};
-        }
-    },
     save : function () {
         var data = {
             title: $('#title').val(),
@@ -70,8 +62,7 @@ var main = {
             url: '/api/post',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
-            data: JSON.stringify(data),
-            headers: this.createAuthorizationTokenHeader()
+            data: JSON.stringify(data)
         }).done(function() {
             alert('글이 등록되었습니다.');
             window.location.href = '/';
@@ -85,15 +76,14 @@ var main = {
             content: $('#content').val()
         };
 
-        var id = $('#id').val();
+        var id = $('#postId').text();
 
         $.ajax({
             type: 'PUT',
             url: '/api/post/'+id,
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
-            data: JSON.stringify(data),
-            headers: this.createAuthorizationTokenHeader()
+            data: JSON.stringify(data)
         }).done(function() {
             alert('글이 수정되었습니다.');
             window.location.href = '/';
@@ -102,14 +92,13 @@ var main = {
         });
     },
     delete : function () {
-        var id = $('#id').val();
+        var id = $('#postId').text();
 
         $.ajax({
             type: 'DELETE',
             url: '/api/post/'+id,
             dataType: 'json',
-            contentType:'application/json; charset=utf-8',
-            headers: this.createAuthorizationTokenHeader()
+            contentType:'application/json; charset=utf-8'
         }).done(function() {
             alert('글이 삭제되었습니다.');
             window.location.href = '/';
@@ -156,23 +145,6 @@ var main = {
             alert(JSON.stringify(error));
         });
     },
-    logout : function () {
-        var data = {
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: '/api/auth/logout',
-            dataType: 'json',
-            contentType:'application/json; charset=utf-8',
-            data: JSON.stringify(data)
-        }).done(function(data) {
-            alert('로그아웃 되었습니다.');
-            window.location.href = '/';
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
-    },
     post : function () {
         var data = {
             title: $('#title').val(),
@@ -213,6 +185,17 @@ var main = {
             window.location.reload();
         }).fail(function (error) {
             alert(JSON.stringify(error));
+        });
+    },
+    loginPage : function () {
+        var data = {
+            content: $('#comment').val(),
+            postId: $('#postId').text()
+        };
+        $.ajax({
+            url: 'http://localhost:9000/authorize'
+        }).done(function(data) {
+            document.location.href="http://localhost:9000/authorize";
         });
     }
 

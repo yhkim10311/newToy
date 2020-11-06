@@ -1,5 +1,5 @@
 <#include "/layout/header.ftl" />
-
+<body>
 <h1>회원가입</h1>
 
 <div class="col-md-12">
@@ -22,5 +22,5 @@
         <button type="button" class="btn btn-primary" id="btn-join">등록</button>
     </div>
 </div>
-
+</body>
 <#include "/layout/footer.ftl" />

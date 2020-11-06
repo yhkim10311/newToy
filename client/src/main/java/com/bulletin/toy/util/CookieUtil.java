@@ -13,11 +13,8 @@ public class CookieUtil {
         cookie.setHttpOnly(true);
         cookie.setPath("/");
 
-        if(type.equals("accessToken")){
-            cookie.setMaxAge((int) JwtAuthHelper.ACCESS_TOKEN_VALIDITY);
-        }else if(type.equals("refreshToken")){
-            cookie.setMaxAge((int) JwtAuthHelper.REFRESH_TOKEN_VALIDITY);
-        }
+        cookie.setMaxAge(-1);
+
         return cookie;
     }
 

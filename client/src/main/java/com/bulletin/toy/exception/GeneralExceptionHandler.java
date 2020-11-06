@@ -1,6 +1,6 @@
 package com.bulletin.toy.exception;
 
-import com.bulletin.toy.controller.ApiResult;
+import com.bulletin.toy.service.ApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpStatus;

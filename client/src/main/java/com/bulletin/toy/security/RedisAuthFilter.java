@@ -2,7 +2,7 @@ package com.bulletin.toy.security;
 
 import com.bulletin.toy.domain.user.Role;
 import com.bulletin.toy.domain.user.User;
-import com.bulletin.toy.service.auth.JwtUserDetails;
+import com.bulletin.toy.service.auth.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -38,9 +38,9 @@ public class RedisAuthFilter extends OncePerRequestFilter {
     private void setContextHolder(Object obj){
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(Role.USER.getKey()));
-        User user = User.builder().email((String)obj).name("name").passwd("passwd").role(Role.USER).build();
+        User user = User.builder().email((String)obj).name("name").role(Role.USER).build();
         Authentication authentication =
-                new UsernamePasswordAuthenticationToken(new JwtUserDetails(user), null, authorities);
+                new UsernamePasswordAuthenticationToken(new CustomUserDetails(user), null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

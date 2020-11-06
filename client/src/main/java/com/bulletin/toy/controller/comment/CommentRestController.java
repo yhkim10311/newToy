@@ -1,7 +1,7 @@
 package com.bulletin.toy.controller.comment;
 
-import com.bulletin.toy.controller.ApiResult;
-import com.bulletin.toy.service.auth.JwtUserDetails;
+import com.bulletin.toy.service.ApiResult;
+import com.bulletin.toy.service.auth.CustomUserDetails;
 import com.bulletin.toy.service.comment.CommentDto;
 import com.bulletin.toy.service.comment.CommentRequest;
 import com.bulletin.toy.service.comment.CommentService;
@@ -20,11 +20,11 @@ public class CommentRestController {
     private final CommentService commentService;
 
     @PostMapping("/post/{postId}/comment")
-    public ApiResult<CommentDto> commenting(@AuthenticationPrincipal JwtUserDetails jwtUserDetails,
+    public ApiResult<CommentDto> commenting(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                             @RequestBody CommentRequest commentRequest,
                                             @PathVariable Long postId){
         return ApiResult.ok(
-                commentService.save(jwtUserDetails, commentRequest, postId)
+                commentService.save(customUserDetails, commentRequest, postId)
         );
     }
 
@@ -36,10 +36,10 @@ public class CommentRestController {
     }
 
     @PostMapping("post/{postId}/comment/{commentId}")
-    public ApiResult<CommentDto> updateComment(@AuthenticationPrincipal JwtUserDetails jwtUserDetails, @PathVariable Long postId, @PathVariable Long commentId, @RequestBody CommentRequest commentRequest){
+    public ApiResult<CommentDto> updateComment(@AuthenticationPrincipal CustomUserDetails customUserDetails, @PathVariable Long postId, @PathVariable Long commentId, @RequestBody CommentRequest commentRequest){
         commentRequest.setCommentId(commentId);
         return ApiResult.ok(
-                commentService.save(jwtUserDetails, commentRequest, postId)
+                commentService.save(customUserDetails, commentRequest, postId)
         );
     }
 

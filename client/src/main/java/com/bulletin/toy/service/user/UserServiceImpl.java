@@ -4,11 +4,10 @@ import com.bulletin.toy.domain.user.Role;
 import com.bulletin.toy.domain.user.User;
 import com.bulletin.toy.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -16,18 +15,13 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
     @Override
     @Transactional
-    public User join(String name, String email, String passwd){
-
-        checkArgument(passwd.length()>=8, "password length must be greater than 7");
+    public User join(String name, String email){
 
         User user = User.builder()
                 .name(name)
                 .email(email)
-                .passwd(passwordEncoder.encode(passwd))
                 .role(Role.USER)
                 .build();
 
@@ -35,7 +29,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findByEmail(String email){
-        return userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다."));
+    public Optional<User> findByEmail(String email){
+        return userRepository.findByEmail(email);
     }
 }

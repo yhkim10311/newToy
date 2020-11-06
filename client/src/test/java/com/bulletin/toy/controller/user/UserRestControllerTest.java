@@ -56,9 +56,9 @@ public class UserRestControllerTest {
 
     @Test
     public void test1_회원가입() throws Exception{
-        User user = User.builder().email(email).name(name).passwd(passwd).role(Role.USER).build();
+        User user = User.builder().email(email).name(name).role(Role.USER).build();
 
-        BDDMockito.given(userService.join(name,email,passwd)).willReturn(user);
+        BDDMockito.given(userService.join(name,email)).willReturn(user);
 
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/user/join")

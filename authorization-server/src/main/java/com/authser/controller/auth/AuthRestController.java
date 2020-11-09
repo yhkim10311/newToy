@@ -2,7 +2,7 @@ package com.authser.controller.auth;
 
 import com.authser.controller.ApiResult;
 import com.authser.domian.user.Role;
-import com.authser.domian.user.User;
+import com.authser.domian.user.UserInfo;
 import com.authser.jwt.JwtTokenHelper;
 import com.authser.service.auth.AuthRequest;
 import com.authser.service.auth.AuthResult;
@@ -17,7 +17,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,7 +46,7 @@ public class AuthRestController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return  ApiResult.ok(
-                new AuthResult(authCode,redirectUrl,new UserDto(((CustomUserDetails)authentication.getPrincipal()).getUser()))
+                new AuthResult(authCode,redirectUrl,new UserDto(((CustomUserDetails)authentication.getPrincipal()).getUserInfo()))
         );
     }
 
@@ -62,7 +61,7 @@ public class AuthRestController {
             throw new IllegalArgumentException("Wrong client server information");
         }
         return ApiResult.ok(
-                jwtTokenHelper.generateAccessToken(new CustomUserDetails(User.builder().email(userId).role(Role.USER).build()))
+                jwtTokenHelper.generateAccessToken(new CustomUserDetails(UserInfo.builder().email(userId).role(Role.USER).build()))
         );
     }
 }

@@ -1,7 +1,7 @@
 package com.authser.service.user;
 
 import com.authser.domian.user.Role;
-import com.authser.domian.user.User;
+import com.authser.domian.user.UserInfo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,8 +23,8 @@ public class UserDto {
 
     private String profilePicUrl;
 
-    public UserDto(User user){
-        copyProperties(user, this);
+    public UserDto(UserInfo userInfo){
+        copyProperties(userInfo, this);
     }
 
 }

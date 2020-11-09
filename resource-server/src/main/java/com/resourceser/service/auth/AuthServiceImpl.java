@@ -1,6 +1,6 @@
 package com.resourceser.service.auth;
 
-import com.resourceser.domian.user.User;
+import com.resourceser.domian.user.UserInfo;
 import com.resourceser.domian.user.UserRepository;
 import com.resourceser.jwt.JwtTokenHelper;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +19,9 @@ public class AuthServiceImpl implements AuthService{
 
         String userId = jwtTokenHelper.getUsernameFromToken(validateToken(token));
 
-        User user = userRepository.findByEmail(userId).orElseThrow(() -> new IllegalArgumentException("There is no user with such email"));
+        UserInfo userInfo = userRepository.findByEmail(userId).orElseThrow(() -> new IllegalArgumentException("There is no user with such email"));
 
-        return user.getEmail();
+        return userInfo.getEmail();
     }
 
     private String validateToken(String token){

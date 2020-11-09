@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @Getter
 @NoArgsConstructor
 @Entity
-public class User extends BaseTimeEntity {
+public class UserInfo extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,7 @@ public class User extends BaseTimeEntity {
     private String profilePicUrl;
 
     @Builder
-    public User(String name, String email, String passwd, Role role, String profilePicUrl){
+    public UserInfo(String name, String email, String passwd, Role role, String profilePicUrl){
         this.id = id;
         this.name = name;
         this.email = email;
@@ -44,7 +44,7 @@ public class User extends BaseTimeEntity {
         this.profilePicUrl = profilePicUrl;
     }
 
-    public User update(String name, String passwd, String profilePicUrl){
+    public UserInfo update(String name, String passwd, String profilePicUrl){
         this.name = name;
         this.passwd = passwd;
         this.profilePicUrl = profilePicUrl;

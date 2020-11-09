@@ -1,7 +1,7 @@
 package com.resourceser.service.user;
 
 import com.resourceser.domian.user.Role;
-import com.resourceser.domian.user.User;
+import com.resourceser.domian.user.UserInfo;
 import com.resourceser.domian.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,22 +24,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User join(String name, String email, String passwd){
+    public UserInfo join(String name, String email, String passwd){
 
         checkArgument(passwd.length()>=8, "password length must be greater than 7");
 
-        User user = User.builder()
+        UserInfo userInfo = UserInfo.builder()
                 .name(name)
                 .email(email)
                 .passwd(passwordEncoder.encode(passwd))
                 .role(Role.USER)
                 .build();
 
-        return userRepository.save(user);
+        return userRepository.save(userInfo);
     }
 
     @Override
-    public Optional<User> findByEmail(String email){
+    public Optional<UserInfo> findByEmail(String email){
         return userRepository.findByEmail(email);
     }
 

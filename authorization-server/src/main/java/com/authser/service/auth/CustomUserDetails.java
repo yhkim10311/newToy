@@ -1,6 +1,6 @@
 package com.authser.service.auth;
 
-import com.authser.domian.user.User;
+import com.authser.domian.user.UserInfo;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,23 +12,23 @@ import java.util.Collection;
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
 
-    private User user;
+    private UserInfo userInfo;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<GrantedAuthority> auth = new ArrayList<>();
-        auth.add(new SimpleGrantedAuthority(user.getRole().getKey()));
+        auth.add(new SimpleGrantedAuthority(userInfo.getRole().getKey()));
         return auth;
     }
 
     @Override
     public String getPassword() {
-        return user.getPasswd();
+        return userInfo.getPasswd();
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return userInfo.getEmail();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 
-    public User getUser(){
-        return user;
+    public UserInfo getUserInfo(){
+        return userInfo;
     }
 }

@@ -1,2 +1,5 @@
 rootProject.name = 'ToyBulletin'
+include 'client'
+include 'authorization-server'
+include 'resource-server'
 

@@ -1,0 +1,61 @@
+server:
+  port: 8080
+
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        ddl_auto: create # 로컬 환경
+        dialect: 'org.hibernate.dialect.MySQL5Dialect'
+    generate-ddl: true  # 로컬 환경
+  freemarker:
+    template-loader-path: 'classpath:/templates'
+    suffix: .ftl
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    platform: h2
+    driver-class-name: org.h2.Driver
+    url: "jdbc:h2:~/test"
+    username: sa
+    password:
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 5
+      pool-name: H2_DB
+  redis:
+    host: localhost
+    port: 6379
+  session:
+    store-type: redis
+    redis:
+      flush-mode: on_save
+      namespace: "spring:session"
+
+jwt:
+  token:
+    header: Authorization
+    issuer: woowabros
+
+auth:
+  redirect-url: 'http://localhost:8080/api/auth/callback'
+  client-id: 'test123'
+  client-secret: 'pw123'
+  server-url: 'http://localhost:9000'
+
+resource:
+  server-url: 'http://localhost:8090'
+
+oauth:
+  authserver: 'http://localhost:9000/authorize'
+  resourceserver: 'http://localhost:8090/join'
+
+
+logging:
+  level:
+    org.hibernate.SQL: TRACE
+    org.hibernate.type: TRACE
+

@@ -12,11 +12,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
+//@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserServiceImplTest {
-
+/*
     @Autowired
     private UserServiceImpl userServiceImpl;
 
@@ -50,4 +50,6 @@ public class UserServiceImplTest {
         assertThat(user.getEmail()).isEqualTo(email);
         assertThat(user.getName()).isEqualTo(name);
     }
+*/
+
 }

@@ -1,1 +1,1 @@
-INSERT INTO user(id,name,email,passwd,role) VALUES (null,'tester00','abc@gmail.com','$2a$10$EbS0bWBZUt.66I4hTu2MUOybjd6QM6JYQxCPaCzv6VOGwArnHU.zS','USER');
+INSERT INTO user_info(id,name,email,passwd,role) VALUES (null,'tester00','abc@gmail.com','$2a$10$EbS0bWBZUt.66I4hTu2MUOybjd6QM6JYQxCPaCzv6VOGwArnHU.zS','USER');

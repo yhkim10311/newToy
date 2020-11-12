@@ -1,0 +1,22 @@
+spring:
+  jpa:
+    show_sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  h2:
+    console:
+      enabled: true
+
+auth:
+  redirect-url: 'http://localhost:8080/api/auth/callback'
+  client-id: 'test123'
+  client-secret: 'pw123'
+  server-url: 'http://localhost:9000'
+
+resource:
+  server-url: 'http://localhost:8090'
+
+oauth:
+  authserver: 'http://localhost:9000/authorize'
+  resourceserver: 'http://localhost:8090/join'

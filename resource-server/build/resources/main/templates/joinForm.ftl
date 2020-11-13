@@ -18,7 +18,7 @@
                 <input type="password" class="form-control" id="credentials" placeholder="비밀번호를 입력하세요">
             </div>
         </form>
-        <button onclick="history.back()" class="btn btn-secondary">취소</button>
+        <a href="http://yh-toy-service.tk/" class="btn btn-secondary" role="button">취소</a>
         <button type="button" class="btn btn-primary" id="btn-join">등록</button>
     </div>
 </div>

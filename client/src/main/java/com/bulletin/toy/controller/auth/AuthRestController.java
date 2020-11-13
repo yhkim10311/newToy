@@ -29,6 +29,7 @@ public class AuthRestController {
     public void callBack(@RequestParam(value = "auth_code") String authCode,
                          @RequestParam(value = "user_id") String userId,
                          HttpServletResponse response) throws IOException {
+        log.info("Authorization redirect successful!");
         String token = authService.getResourceWithToken(authCode, userId);
         userService.findByEmail(userId).orElseGet(() -> userService.join("name",userId));
 

@@ -31,8 +31,4 @@ public class IndexController {
 
         return new ModelAndView("loginForm", params);
     }
-
-    @GetMapping("/")
-    public ApiResult<Long> healthCheck() { return ApiResult.ok(System.currentTimeMillis());}
-
 }

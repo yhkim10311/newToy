@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-md-6">
         <a href="/post" role="button" class="btn btn-primary">글 등록</a>
-        <#if userInfo?has_content>
+        <#if userInfo??>
             <a href="/logout" class="btn btn-success active" role="button" id="btn-logout">Logout</a> logged in as ${userInfo}
         <#else>
             <a href="${authServerUrl}?client_id=${cliendId}&redirect_url=${redirectUrl}" class="btn btn-success active" role="button">Login</a>

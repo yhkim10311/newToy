@@ -14,7 +14,7 @@
                 <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요">
             </div>
             <div class="form-group">
-                <label for="credentials">비밀번호</label>
+                <label for="credentials">비밀번호 (8자리 이상)</label>
                 <input type="password" class="form-control" id="credentials" placeholder="비밀번호를 입력하세요">
             </div>
         </form>

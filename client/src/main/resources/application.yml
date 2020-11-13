@@ -33,17 +33,17 @@ jwt:
     issuer: woowabros
 
 auth:
-  redirect-url: 'http://yh-toy-lb-310524064.ap-northeast-2.elb.amazonaws.com:8080/api/auth/callback'
+  redirect-url: 'http://yh-toy-service.tk/api/auth/callback'
   client-id: 'test123'
   client-secret: 'pw123'
-  server-url: 'http://yh-toy-lb-310524064.ap-northeast-2.elb.amazonaws.com:9000'
+  server-url: 'http://yh-toy-auth-lb-939789643.ap-northeast-2.elb.amazonaws.com'
 
 resource:
-  server-url: 'http://yh-toy-lb-310524064.ap-northeast-2.elb.amazonaws.com:8090'
+  server-url: 'http://yh-toy-resource-lb-2070114823.ap-northeast-2.elb.amazonaws.com'
 
 oauth:
-  authserver: 'http://yh-toy-lb-310524064.ap-northeast-2.elb.amazonaws.com:9000/authorize'
-  resourceserver: 'http://yh-toy-lb-310524064.ap-northeast-2.elb.amazonaws.com:8090/join'
+  authserver: 'http://yh-toy-auth-lb-939789643.ap-northeast-2.elb.amazonaws.com/authorize'
+  resourceserver: 'http://yh-toy-resource-lb-2070114823.ap-northeast-2.elb.amazonaws.com/join'
 
 
 logging:

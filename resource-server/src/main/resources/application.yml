@@ -33,6 +33,6 @@ jwt:
     secret: F948937D2B793758ADFFECBD19B719CF1C5367B1CD96E7B4A72B41D69E2FFE24
 
 auth:
-  redirect-url: 'http://yh-toy-lb-310524064.ap-northeast-2.elb.amazonaws.com:8080/api/auth/callback'
+  redirect-url: 'http://yh-toy-service.tk/api/auth/callback'
   client-id: 'test123'
   client-secret: 'pw123'

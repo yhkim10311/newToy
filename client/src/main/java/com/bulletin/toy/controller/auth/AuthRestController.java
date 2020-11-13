@@ -35,6 +35,8 @@ public class AuthRestController {
         httpSession.setAttribute("user",userId);
         response.addCookie(CookieUtil.createCookie(token,JwtAuthHelper.ACCESS_TOKEN_NAME));
 
-        response.sendRedirect("/");
+
+        log.info("Start redirection here : {}",response);
+        response.sendRedirect("http://yh-toy-service.tk/");
     }
 }

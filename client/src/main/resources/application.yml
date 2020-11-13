@@ -51,3 +51,8 @@ logging:
     org.hibernate.SQL: TRACE
     org.hibernate.type: TRACE
 
+
+feign.client.config.default.connectTimeout: 160000000
+feign.client.config.default.readTimeout: 160000000
+
+

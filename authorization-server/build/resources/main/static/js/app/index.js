@@ -59,7 +59,7 @@ var main = {
             data: JSON.stringify(data)
         }).done(function(data) {
             alert('로그인 되었습니다.');
-            document.location.href = data.response.redirectUrl
+            window.location.href = data.response.redirectUrl
                 +'?auth_code='+data.response.authCode
                 +'&user_id='+data.response.userDto.email;
         }).fail(function (error) {

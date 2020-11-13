@@ -19,7 +19,7 @@ spring:
       enabled: true
       path: /h2-console
   redis:
-    host: localhost
+    host: 'yh-toy-redis-2.8vqaql.ng.0001.apn2.cache.amazonaws.com'
     port: 6379
   session:
     store-type: redis
@@ -33,17 +33,17 @@ jwt:
     issuer: woowabros
 
 auth:
-  redirect-url: 'http://localhost:8080/api/auth/callback'
+  redirect-url: 'http://yh-toy-service.tk/api/auth/callback'
   client-id: 'test123'
   client-secret: 'pw123'
-  server-url: 'http://localhost:9000'
+  server-url: 'http://yh-toy-auth-lb-939789643.ap-northeast-2.elb.amazonaws.com'
 
 resource:
-  server-url: 'http://localhost:8090'
+  server-url: 'http://yh-toy-resource-lb-2070114823.ap-northeast-2.elb.amazonaws.com'
 
 oauth:
-  authserver: 'http://localhost:9000/authorize'
-  resourceserver: 'http://localhost:8090/join'
+  authserver: 'http://yh-toy-auth-lb-939789643.ap-northeast-2.elb.amazonaws.com/authorize'
+  resourceserver: 'http://yh-toy-resource-lb-2070114823.ap-northeast-2.elb.amazonaws.com/join'
 
 
 logging:

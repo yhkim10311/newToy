@@ -52,8 +52,8 @@ logging:
     org.hibernate.type: TRACE
 
 feign:
-  client:
-    config:
-      default:
-        connectTimeout:
-        readTimeout:
+  auth:
+    server-url: 'localhost:9000'
+  resource:
+    server-url: 'localhost:8090'
+

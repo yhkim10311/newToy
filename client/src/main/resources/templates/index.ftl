@@ -4,8 +4,8 @@
 <div class="row">
     <div class="col-md-6">
         <a href="/post" role="button" class="btn btn-primary">글 등록</a>
-        <#if userInfo??>
-            <a href="/logout" class="btn btn-success active" role="button" id="btn-logout">Logout</a> logged in as ${userInfo}
+        <#if user??>
+            <a href="/logout" class="btn btn-success active" role="button" id="btn-logout">Logout</a> logged in as ${user}
         <#else>
             <a href="${authServerUrl}?client_id=${cliendId}&redirect_url=${redirectUrl}" class="btn btn-success active" role="button">Login</a>
             <a href="${resourceServerUrl}" class="btn btn-success active" role="button">회원가입</a>

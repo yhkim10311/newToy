@@ -37,6 +37,6 @@ public class AuthRestController {
 
 
         log.info("Start redirection here : {}",response);
-        response.sendRedirect("http://yh-toy-service.tk/");
+        response.sendRedirect("/");
     }
 }

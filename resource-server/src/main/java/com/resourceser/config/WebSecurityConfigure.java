@@ -30,7 +30,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/join","/js/**","/h2-console/**").permitAll()
-                .antMatchers("/api/hcheck").permitAll()
+                .antMatchers("/","/api/hcheck").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/user/join").permitAll()
                 .anyRequest().authenticated()

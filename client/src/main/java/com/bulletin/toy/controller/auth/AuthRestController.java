@@ -29,7 +29,7 @@ public class AuthRestController {
     public void callBack(@RequestParam(value = "auth_code") String authCode,
                          @RequestParam(value = "user_id") String userId,
                          HttpServletResponse response) throws IOException {
-        log.info("Authorization redirect successful!");
+        log.debug("Authorization redirect successful!");
         String token = authService.getResourceWithToken(authCode, userId);
         userService.findByEmail(userId).orElseGet(() -> userService.join("name",userId));
 
@@ -37,7 +37,7 @@ public class AuthRestController {
         response.addCookie(CookieUtil.createCookie(token,JwtAuthHelper.ACCESS_TOKEN_NAME));
 
 
-        log.info("Start redirection here : {}",response);
+        log.debug("Start redirection here : {}",response);
         response.sendRedirect("/");
     }
 }

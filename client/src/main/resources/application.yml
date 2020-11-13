@@ -52,14 +52,8 @@ logging:
     org.hibernate.type: TRACE
 
 feign:
-  hystrix:
-    enabled: true
   client:
     config:
       default:
-        loggerLevel: BASIC
-        # feign의 전역 timeout 설정 : 5초
         connectTimeout: 160000000
         readTimeout: 160000000
-
-hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 10000

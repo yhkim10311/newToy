@@ -48,7 +48,7 @@ public class AuthRestController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         log.info("Authorization of Auth Server start!!!");
-        
+
         return  ApiResult.ok(
                 new AuthResult(authCode,redirectUrl,new UserDto(((CustomUserDetails)authentication.getPrincipal()).getUserInfo()))
         );

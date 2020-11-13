@@ -59,7 +59,7 @@ public class AuthRestController {
                                             @RequestParam(value = "redirect_url") String redirectUrl,
                                             @RequestParam(value = "auth_code") String authCode,
                                             @RequestParam(value = "user_id") String userId,
-                                            @RequestHeader(value="Authorization") String clientSecret){
+                                            @RequestHeader(value="Authorization", required = false) String clientSecret){
         /*
         if(!this.clinetId.equals(clientId) || !this.redirectUrl.equals(redirectUrl) || !this.authCode.equals(authCode)
                 || !this.clientSecret.equals(clientSecret)) {

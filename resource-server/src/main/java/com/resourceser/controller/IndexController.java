@@ -16,4 +16,6 @@ public class IndexController {
         return "joinForm";
     }
 
+    @GetMapping("/")
+    public ApiResult<Long> healthCheck() { return ApiResult.ok(System.currentTimeMillis());}
 }

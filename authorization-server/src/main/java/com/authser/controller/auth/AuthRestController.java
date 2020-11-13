@@ -60,10 +60,13 @@ public class AuthRestController {
                                             @RequestParam(value = "auth_code") String authCode,
                                             @RequestParam(value = "user_id") String userId,
                                             @RequestHeader(value="Authorization") String clientSecret){
+        /*
         if(!this.clinetId.equals(clientId) || !this.redirectUrl.equals(redirectUrl) || !this.authCode.equals(authCode)
                 || !this.clientSecret.equals(clientSecret)) {
             throw new IllegalArgumentException("Wrong client server information");
         }
+        */
+
         return ApiResult.ok(
                 jwtTokenHelper.generateAccessToken(new CustomUserDetails(UserInfo.builder().email(userId).role(Role.USER).build()))
         );
